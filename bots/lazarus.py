@@ -12,7 +12,7 @@ logger = logger.get_logger()
 intents = discord.Intents.default()
 intents.message_content = True
 bot = discord.Bot(intents=intents, enable_debug_events=True)
-keepalive_servers: [str, list[str]] = defaultdict(list[str])
+keepalive_servers = defaultdict(list[str])
 
 
 @bot.event
