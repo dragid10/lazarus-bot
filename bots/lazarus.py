@@ -2,7 +2,6 @@ from collections import defaultdict
 
 import discord
 from discord import ApplicationContext
-from icecream import ic
 
 from util import logger, config
 from util.helper import is_thread, thread_archive_event
@@ -18,7 +17,7 @@ keepalive_servers: [str, list[str]] = defaultdict(list[str])
 
 @bot.event
 async def on_ready():
-    ic(f"We have logged in as {bot.user}")
+    logger.debug(f"We have logged in as {bot.user}")
 
 
 @bot.event

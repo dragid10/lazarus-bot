@@ -1,7 +1,6 @@
 from discord.ext import commands
 from discord.ext.commands import Context
 from discord_slash import cog_ext
-from icecream import ic
 
 from util import logger
 from util.helper import is_thread
@@ -17,11 +16,11 @@ class KeepaliveCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        ic(f"We have logged in as {self.bot.user}")
+        logger.debug(f"We have logged in as {self.bot.user}")
 
     @commands.Cog.listener()
     async def on_thread_update(self, pre_payload, post_payload):
-        ic("A THREAD WAS ARCHIVED")
+        logger.debug("A THREAD WAS ARCHIVED")
 
     @cog_ext.cog_slash(name="ping", description="Checks if the bot is currently up. Will respond `pong` if the bot is alive")
     async def ping(self, ctx: Context):
