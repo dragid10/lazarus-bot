@@ -1,22 +1,33 @@
 import discord
-from icecream import ic
+from discord import SlashCommand
+from discord.ext import commands
 
 from util import logger, config
 
 # Add loguru logger to all modules
 logger = logger.get_logger()
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(intents=intents, command_prefix="/keepalive ", enable_debug_events=True)
+slash = SlashCommand(bot, sync_commands=True)
 
-bot = discord.Bot(command_prefix=config.bot_prefix)
-
-
-@bot.event
-async def on_ready():
-    ic(f"We have logged in as {bot.user}")
-
-
-@bot.slash_command()
-async def ping(ctx):
-    await ctx.respond("pong!")
+# @bot.event
+# async def on_socket_event_type(event_type):
+#     ic(type(event_type))
+#     logger.debug(event_type)
+#
+#
+# @bot.event
+# async def on_socket_raw_receive(msg):
+#     ic(type(msg))
+#     logger.debug(msg)
+#
+#
+# @bot.event
+# async def on_socket_raw_send(payload):
+#     ic(type(payload))
+#     logger.debug(payload)
 
 if __name__ == '__main__':
-    bot.run(config.bot_token)
+    bot.load_extension("cogs.keepalivecog")
+    bot.run(config.bot_token, reconnect=True)

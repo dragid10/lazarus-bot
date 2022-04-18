@@ -1,9 +1,9 @@
 
-# Discord Bot Template (python)
+# Lazarus Discord Bot 
 
 Template for building discord apps  
 
-Oauth2 link: `https://discord.com/api/oauth2/authorize?client_id=<CLIENT_ID>&permissions=<PERMS_INT>&scope=bot%20applications.commands`
+Oauth2 link: `./`
 
 ## Documentation
 - [Discord Scopes Explanation](https://discord.com/developers/docs/topics/oauth2)
