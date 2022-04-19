@@ -51,7 +51,7 @@ async def keepalive_on(ctx: ApplicationContext):
 
     #  If the msg comes from a source that isn't a thread, send an error reply
     if not is_thread(msg_source):
-        await ctx.respond(f"Please execute the `keepalive` command from a thread!")
+        await ctx.respond(f"Please execute the `keepalive` command from a thread, and ensure Lazarus has Read/Write permissions in that thread")
         return
 
     # If the thread is being monitored, send a response
@@ -81,7 +81,7 @@ async def keepalive_off(ctx: ApplicationContext):
 
     #  If the msg comes from a source that isn't a thread, send an error reply
     if not is_thread(msg_source):
-        await ctx.respond(f"Please execute the `keepalive` command from a thread!")
+        await ctx.respond(f"Please execute the `keepalive` command from a thread, and ensure Lazarus has Read/Write permissions in that thread")
         return
 
     # If the thread is not being monitored, send a response
