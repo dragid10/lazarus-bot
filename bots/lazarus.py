@@ -17,7 +17,7 @@ keepalive_servers = defaultdict(list[str])
 
 @bot.event
 async def on_ready():
-    logger.debug(f"We have logged in as {bot.user}")
+    logger.info(f"We have logged in as {bot.user}")
 
 
 @bot.event
@@ -62,7 +62,7 @@ async def keepalive_on(ctx: ApplicationContext):
     # Add the thread id to the keepalive store
     try:
         keepalive_servers[server_id].append(thread_id)
-    except Exception as e:
+    except Exception:
         logger.exception(f"Unable to add thread to keepalive store")
         await ctx.respond(f"An error occurred trying to watch this thread. Try again later")
         return
