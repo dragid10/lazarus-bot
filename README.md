@@ -1,9 +1,9 @@
 
-# Discord Bot Template (python)
+# Lazarus Discord Bot  
 
-Template for building discord apps  
+Prevent threads from archiving
 
-Oauth2 link: `https://discord.com/api/oauth2/authorize?client_id=<CLIENT_ID>&permissions=<PERMS_INT>&scope=bot%20applications.commands`
+[Install link](https://discord.com/api/oauth2/authorize?client_id=965283118477094992&permissions=543582182592&scope=bot%20applications.commands)
 
 ## Documentation
 - [Discord Scopes Explanation](https://discord.com/developers/docs/topics/oauth2)
