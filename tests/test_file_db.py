@@ -17,7 +17,11 @@ class MockFileDB(FileDB):
 
     def connect(self, username: str = None, password: str = None, hostname: str = None, port: int = None, options: dict = None, ):
         self.db_file = io.StringIO("{}")
-        ic(self.db_file.readlines())
+        try:
+            self._watchlist = json.loads(self.db_file.read())
+            ic(self._watchlist)
+        except Exception as e:
+            ic(f"Couldn't open file???: {e}")
 
     def disconnect(self):
         self.db_file = io.StringIO(json.dumps(self._watchlist))
@@ -31,6 +35,20 @@ class MockFileDB(FileDB):
         self.db_file.truncate()
         self.disconnect()
 
+    def remove_thread_from_watchlist(self, thread_id: str, server_id: str):
+        if not self.db_file or self.db_file.closed:
+            self.connect(None, None, None, options={"mode": "r+"})
+        if self.thread_in_watchlist(thread_id, server_id):
+            self._watchlist.get(server_id, []).remove(thread_id)
+        self.db_file.truncate()
+        self.disconnect()
+
+    def thread_in_watchlist(self, thread_id: str, server_id: str) -> bool:
+        if not self.db_file or self.db_file.closed:
+            self.connect(None, None, None, options={"mode": "r+"})
+        resp = thread_id in self._watchlist.get(server_id, [])
+        return resp
+
 
 @pytest.fixture()
 def thread_id() -> str:
@@ -43,7 +61,7 @@ def server_id() -> str:
 
 
 @pytest.fixture(scope="function")
-def db() -> FileDB:
+def db() -> MockFileDB:
     file_db = MockFileDB()
     return file_db
 
@@ -55,9 +73,23 @@ def test_connect(db):
 
 def test_disconnect(db):
     db.disconnect()
-    assert not db.db_file
+    assert db.db_file.readlines() is not None
 
 
 def test_add_thread_to_watchlist(db, thread_id, server_id):
     db.add_thread_to_watchlist(thread_id, server_id)
-    assert len(db._watchlist) > 0
+    assert len(db._watchlist[server_id]) > 0
+
+
+def test_remove_thread_from_watchlist(db, thread_id, server_id):
+    db.add_thread_to_watchlist(thread_id, server_id)
+    assert len(db._watchlist[server_id]) > 0
+
+    db.remove_thread_from_watchlist(thread_id, server_id)
+    assert len(db._watchlist[server_id]) == 0
+
+
+def test_thread_in_watchlist(db, thread_id, server_id):
+    expected = False
+    actual = db.thread_in_watchlist(thread_id, server_id)
+    assert actual is expected

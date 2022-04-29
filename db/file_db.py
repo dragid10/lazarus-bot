@@ -25,7 +25,6 @@ class FileDB(AbstractDB):
     def disconnect(self):
         json.dump(self._watchlist, self.db_file, indent=3)
         self.db_file.close()
-        self.db_file = None
 
     def add_thread_to_watchlist(self, thread_id: str, server_id: str):
         if not self.db_file or self.db_file.closed:
@@ -49,5 +48,4 @@ class FileDB(AbstractDB):
         if not self.db_file or self.db_file.closed:
             self.connect(None, None, None, options={"mode": "r+"})
         resp = thread_id in self._watchlist.get(server_id, [])
-        # self.db_file.close()
         return resp

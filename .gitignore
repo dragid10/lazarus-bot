@@ -379,3 +379,4 @@ cython_debug/
 
 # Custom Ignore
 *-db.json
+*.bak
