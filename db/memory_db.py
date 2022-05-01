@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from db.db_impl import AbstractDB
+from db.abstract_db import AbstractDB
 from util import logger
 
 logger = logger.get_logger()
@@ -11,7 +11,7 @@ class InMemoryDB(AbstractDB):
         super().__init__()
         self.__watchlist = defaultdict(list[str])
 
-    def connect(self, username: str, password: str, hostname: str, port: int, options: dict):
+    def _connect(self, username: str, password: str, hostname: str, port: int, options: dict):
         pass
 
     def add_thread_to_watchlist(self, thread_id: str, server_id: str):
