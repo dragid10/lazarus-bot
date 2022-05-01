@@ -13,7 +13,7 @@ def test_connect(when, mock_db):
     #  Stub connect method and make sure it gets called at least once
     when(mock_db)._connect(username=ANY(str), password=ANY(str), hostname=ANY(str), port=ANY(int))
     mock_db._connect(username="user", password="pass", hostname="abc123.com", port=1234, )
-    verify(mock_db, times=1)._connect(username="user", password="pass", hostname="abc123.com", port=1234,)
+    verify(mock_db, times=1)._connect(username="user", password="pass", hostname="abc123.com", port=1234, )
 
 
 def test_add_thread_to_watchlist(when, mock_db):

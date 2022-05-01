@@ -31,7 +31,7 @@ def test_disconnect(mock_db):
     verify(mock_db, times=1)._disconnect(...)
 
 
-def test_add_thread_to_watchlist(mock_db, thread_id, server_id): 
+def test_add_thread_to_watchlist(mock_db, thread_id, server_id):
     when(mock_db).add_thread_to_watchlist(thread_id=thread_id, server_id=server_id)
     mock_db.add_thread_to_watchlist(thread_id=thread_id, server_id=server_id)
     verify(mock_db, times=1).add_thread_to_watchlist(...)
