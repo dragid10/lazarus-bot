@@ -29,4 +29,5 @@ jobs:
         if [ -f pyproject.toml ]; then poetry install --with test; fi
     - name: Test with pytest
       run: |
-        poetry run pytest
+        poetry run pytest --version
+        poetry run pytest tests/

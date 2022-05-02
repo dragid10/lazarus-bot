@@ -1,5 +1,6 @@
 ![Build Status](https://github.com/dragid10/lazarus-bot/actions/workflows/python-tests.yml/badge.svg)
-# Lazarus Discord Bot  
+# Lazarus Discord Bot
+
 A discord bot that automatically unarchives threads as soon as they're archived.
 
 [Install link](https://discord.com/api/oauth2/authorize?client_id=965283118477094992&permissions=543582182592&scope=bot%20applications.commands)
