@@ -1,5 +1,5 @@
 import pytest
-from mockito import when, verify
+from mockito import when, verify, mock
 
 from db.file_db import FileDB
 
@@ -16,7 +16,7 @@ def server_id() -> str:
 
 @pytest.fixture(scope="function")
 def mock_db() -> FileDB:
-    return FileDB()
+    return mock(FileDB)
 
 
 def test_connect(mock_db):

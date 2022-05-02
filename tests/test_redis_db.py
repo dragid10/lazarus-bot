@@ -1,12 +1,12 @@
 import pytest
-from mockito import ANY, verify
+from mockito import ANY, verify, mock
 
 from db.redis_db import RedisDB
 
 
 @pytest.fixture
 def mock_db():
-    return RedisDB()
+    return mock(RedisDB)
 
 
 def test_connect(when, mock_db):
