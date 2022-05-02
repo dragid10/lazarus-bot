@@ -4,6 +4,9 @@ from mockito import verify, mock, ANY
 
 from bots import lazarus
 from db.abstract_db import AbstractDB
+from db.file_db import FileDB
+from db.memory_db import InMemoryDB
+from db.redis_db import RedisDB
 
 
 @pytest.mark.asyncio
@@ -129,3 +132,8 @@ def test_run(when, lazarus_bot):
     when(bot_obj).run(ANY(str), reconnect=ANY(bool))
     lazarus_bot.run()
     verify(bot_obj, times=1).run(...)
+
+
+@pytest.mark.parametrize("input, expected", [("memory", InMemoryDB), ("local", FileDB), ("redis", RedisDB)])
+def test_db_mapper(input, expected):
+    assert isinstance(lazarus.db_mapper(input), expected)

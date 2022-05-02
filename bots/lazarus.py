@@ -2,6 +2,7 @@ import discord
 
 from db.abstract_db import AbstractDB
 from db.db_manager import DBProvider
+from db.file_db import FileDB
 from db.memory_db import InMemoryDB
 from db.redis_db import RedisDB
 from util import logger, config
@@ -109,6 +110,19 @@ async def keepalive_off(ctx):
     await ctx.send_response("I'll no longer monitor this thread! 😵")
 
 
-def run():
-    set_db_source(source=RedisDB())
+def db_mapper(user_input) -> AbstractDB:
+    if not user_input or user_input.casefold().strip() == "memory":
+        return InMemoryDB()
+    elif user_input.casefold().strip() == "local":
+        return FileDB()
+    elif user_input.casefold().strip() == "redis":
+        return RedisDB()
+    else:
+        raise ValueError(f"Invalid database type: {user_input}")
+
+
+def run(user_input=None):
+    db_source = db_mapper(user_input)
+    set_db_source(source=db_source)
+    logger.info(f"Using `{user_input}` as watchlist storage")
     bot.run(config.bot_token, reconnect=True)
