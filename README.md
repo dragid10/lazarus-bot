@@ -1,4 +1,4 @@
-![Build Status](https://github.com/dragid10/lazarus-bot/workflows/python-tests/badge.svg)
+![Build Status](https://github.com/dragid10/lazarus-bot/actions/workflows/python-tests.yml/badge.svg)
 # Lazarus Discord Bot  
 
 Prevent threads from archiving

@@ -26,10 +26,6 @@ jobs:
     - name: Install dependencies
       run: |
         curl -sSL https://install.python-poetry.org | python3 - --preview
-        ls -hal
-        pwd
-        poetry --version
-        source $HOME/.poetry/env
         if [ -f pyproject.toml ]; then poetry install --with test; fi
     - name: Test with pytest
       run: |
