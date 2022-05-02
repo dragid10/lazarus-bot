@@ -11,5 +11,5 @@ class DBProvider:
     def remove_thread_from_watchlist(self, thread_id: str, server_id: str):
         self.db.remove_thread_from_watchlist(thread_id, server_id)
 
-    def thread_in_watchlist(self, thread_id: str, server_id: str):
-        self.db.thread_in_watchlist(thread_id, server_id)
+    def thread_in_watchlist(self, thread_id: str, server_id: str) -> bool:
+        return self.db.thread_in_watchlist(thread_id, server_id)
