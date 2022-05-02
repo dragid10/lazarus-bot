@@ -16,38 +16,20 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && apt-get clean
 
-
+# Install Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - --preview
 
 # Change workdir
 WORKDIR /app
 
-# Copy deps file to workdir
+# Install dependencies
+COPY poetry.lock pyproject.toml /app/
+RUN /root/.local/bin/poetry config virtualenvs.create false
+RUN /root/.local/bin/poetry install --only default
+
+# Copy modules to cache them in docker layer
 COPY . /app/
 ENV PYTHONPATH /app/*
 
-# PROD TARGET
-FROM base as prod
 RUN echo "Prod build"
-# Install poetry
-RUN curl -sSL https://install.python-poetry.org | python3 - --preview\
-    && /root/.local/bin/poetry config virtualenvs.create false \
-    && /root/.local/bin/poetry install --only default
-RUN /root/.local/bin/poetry run python -m main -d redis
-
-# TEST TARGET
-FROM base as test
-RUN echo "Test build"
-# Install poetry
-RUN curl -sSL https://install.python-poetry.org | python3 - --preview\
-    && /root/.local/bin/poetry config virtualenvs.create false \
-    && /root/.local/bin/poetry install --with test
-CMD /root/.local/bin/poetry run pytest
-
-# DEV TARGET
-FROM base as dev
-RUN echo "Dev build"
-# Install poetry
-RUN curl -sSL https://install.python-poetry.org | python3 - --preview\
-    && /root/.local/bin/poetry config virtualenvs.create false \
-    && /root/.local/bin/poetry install
-CMD /root/.local/bin/poetry run python -m main -d memory
+CMD ["/root/.local/bin/poetry", "run", "python", "-m", "main", "-d", "redis"]
