@@ -10,13 +10,13 @@ ENV POETRY_VIRTUALENVS_IN_PROJECT=false
 ENV POETRY_NO_INTERACTION=1
 
 # OS Update / Upgrade packages
-RUN apt update \
-    && apt upgrade -y \
-    && apt autoremove -y \
-    && apt clean
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y curl \
+    && apt-get autoremove -y \
+    && apt-get clean
 
-# Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 - --preview
+
 
 # Change workdir
 WORKDIR /app
@@ -24,19 +24,31 @@ WORKDIR /app
 # Copy deps file to workdir
 COPY . /app/
 ENV PYTHONPATH /app/*
-RUN poetry config virtualenvs.create false
-
-# TEST TARGET
-FROM base as test
-RUN poetry install --with test
-RUN ["poetry", "run", "pytest"]
-
-# DEV TARGET
-FROM base as dev
-RUN poetry install
-RUN ["poetry", "run", "python", "-m", "main", "-d", "memory"]
 
 # PROD TARGET
 FROM base as prod
-RUN poetry install --only default
-RUN ["poetry", "run", "python", "-m", "main", "-d", "redis"]
+RUN echo "Prod build"
+# Install poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - --preview\
+    && /root/.local/bin/poetry config virtualenvs.create false \
+    && /root/.local/bin/poetry install --only default
+#    && /root/.local/bin/poetry run python -m main -d redis
+RUN /root/.local/bin/poetry run python -m main -d redis
+
+# TEST TARGET
+FROM base as test
+RUN echo "Test build"
+# Install poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - --preview\
+    && /root/.local/bin/poetry config virtualenvs.create false \
+    && /root/.local/bin/poetry install --with test
+RUN /root/.local/bin/poetry run pytest
+
+# DEV TARGET
+FROM base as dev
+RUN echo "Dev build"
+# Install poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - --preview\
+    && /root/.local/bin/poetry config virtualenvs.create false \
+    && /root/.local/bin/poetry install
+RUN /root/.local/bin/poetry run python -m main -d memory
