@@ -33,7 +33,7 @@ RUN curl -sSL https://install.python-poetry.org | python3 - --preview\
     && /root/.local/bin/poetry config virtualenvs.create false \
     && /root/.local/bin/poetry install --only default
 #    && /root/.local/bin/poetry run python -m main -d redis
-RUN /root/.local/bin/poetry run python -m main -d redis
+CMD /root/.local/bin/poetry run python -m main -d redis
 
 # TEST TARGET
 FROM base as test
@@ -42,7 +42,7 @@ RUN echo "Test build"
 RUN curl -sSL https://install.python-poetry.org | python3 - --preview\
     && /root/.local/bin/poetry config virtualenvs.create false \
     && /root/.local/bin/poetry install --with test
-RUN /root/.local/bin/poetry run pytest
+CMD /root/.local/bin/poetry run pytest
 
 # DEV TARGET
 FROM base as dev
@@ -51,4 +51,4 @@ RUN echo "Dev build"
 RUN curl -sSL https://install.python-poetry.org | python3 - --preview\
     && /root/.local/bin/poetry config virtualenvs.create false \
     && /root/.local/bin/poetry install
-RUN /root/.local/bin/poetry run python -m main -d memory
+CMD /root/.local/bin/poetry run python -m main -d memory
