@@ -6,7 +6,19 @@ setup:
 	. $$HOME/.poetry/env
 
 install:
+	  poetry install --only default
+
+install-dev:
 	  poetry install
+
+install-test:
+	  poetry install --with test
 
 update:
 	  poetry update
+
+lock:
+	  poetry lock
+
+test:
+	  poetry run pytest
