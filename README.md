@@ -1,4 +1,4 @@
-
+![Build Status](https://github.com/dragid10/lazarus-bot/workflows/python-tests/badge.svg)
 # Lazarus Discord Bot  
 
 Prevent threads from archiving
@@ -30,4 +30,3 @@ To deploy this project:
 To run this project, you will need to add the following environment variables to your .env file
 
 `bot_token`: String
-
