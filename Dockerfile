@@ -1,4 +1,4 @@
-FROM python:3.9.12-slim
+FROM python:3.9.12-slim as base
 
 # Python env flags
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -21,14 +21,22 @@ RUN pip install Poetry
 # Change workdir
 WORKDIR /app
 
-# Install dependencies
-COPY poetry.lock pyproject.toml /app/
-RUN poetry config virtualenvs.create false
-RUN poetry install --no-dev
-
-# Copy modules to cache them in docker layer
+# Copy deps file to workdir
 COPY . /app/
 ENV PYTHONPATH /app/*
-CMD ["poetry", "run", "python", "-m", "main"]
+RUN poetry config virtualenvs.create false
 
+# TEST TARGET
+FROM base as test
+RUN poetry install --with test
+CMD ["poetry", "run", "pytest"]
 
+# DEV TARGET
+FROM base as dev
+RUN poetry install
+CMD ["poetry", "run", "python", "-m", "main", "-d", "memory"]
+
+# PROD TARGET
+FROM base as prod
+RUN poetry install --only default
+CMD ["poetry", "run", "python", "-m", "main", "-d", "redis"]
