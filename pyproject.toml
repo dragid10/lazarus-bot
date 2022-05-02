@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "lazarus-bot"
 version = "1.0.0"
-description = ""
+description = "A discord bot that automatically unarchives threads as soon as they're archived."
 authors = ["Alex Oladele <dragid10@gmail.com>"]
 
 [tool.poetry.dependencies]
