@@ -1,6 +1,7 @@
 import pytest
 from discord import Thread, ApplicationContext, Guild
 from mockito import verify, mock, ANY
+from mockito.mocking import _Dummy
 
 from bots import lazarus
 from db.abstract_db import AbstractDB
@@ -134,6 +135,8 @@ def test_run(when, lazarus_bot):
     verify(bot_obj, times=1).run(...)
 
 
-@pytest.mark.parametrize("input, expected", [("memory", InMemoryDB), ("local", FileDB), ("redis", RedisDB)])
-def test_db_mapper(input, expected):
-    assert isinstance(lazarus.db_mapper(input), expected)
+@pytest.mark.parametrize("input, expected", [("memory", mock(InMemoryDB)), ("local", mock(FileDB)), ("redis", mock(RedisDB))])
+def test_db_mapper(when, lazarus_bot, input, expected):
+    when(lazarus_bot).db_mapper(input).thenReturn(expected)
+    actual = lazarus_bot.db_mapper(input)
+    assert isinstance(actual, _Dummy)
