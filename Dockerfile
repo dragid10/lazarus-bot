@@ -29,14 +29,14 @@ RUN poetry config virtualenvs.create false
 # TEST TARGET
 FROM base as test
 RUN poetry install --with test
-CMD ["poetry", "run", "pytest"]
+RUN ["poetry", "run", "pytest"]
 
 # DEV TARGET
 FROM base as dev
 RUN poetry install
-CMD ["poetry", "run", "python", "-m", "main", "-d", "memory"]
+RUN ["poetry", "run", "python", "-m", "main", "-d", "memory"]
 
 # PROD TARGET
 FROM base as prod
 RUN poetry install --only default
-CMD ["poetry", "run", "python", "-m", "main", "-d", "redis"]
+RUN ["poetry", "run", "python", "-m", "main", "-d", "redis"]
