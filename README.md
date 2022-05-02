@@ -16,6 +16,8 @@ Prevent threads from archiving
 
 **Discord package**: [Py-Cord](https://docs.pycord.dev/en/master/index.html)
 
+**Unit Test Runner**: [Pytest](https://docs.pytest.org/en/stable/)
+
 ## Deployment
 
 To deploy this project:
@@ -23,10 +25,27 @@ To deploy this project:
 1. [Template](https://github.com/dragid10/discord-bot-template/generate) this repo
 1. Clone and `cd` into the repo
 1. Run `make setup` to automatically install `poetry`
-1. Run `make update && make install` to update and install dependencies
-
+1. Run `make update && make install` to update and install production dependencies
+1. _Alternatively_, you can run `make install-dev` or `make install-test` to install all dev dependencies or test dependencies respectively
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`bot_token`: String
+- Clone the `.env-sample` [file](https://github.com/dragid10/lazarus-bot/blob/master/.env.sample) and rename it `.env`
+- If you're using a `.env` file, then the environment variables will be set automatically(thanks
+  to [dotenv](https://pypi.org/project/python-dotenv/))
+    - Otherwise you can export each of the environment variables manually
+   ```bash
+    export bot_token=<bot_token>
+   ```
+
+### [Discord]
+
+`bot_token`: **String**
+
+### [Redis]
+
+`redis_user`: **String**  
+`redis_password`: **String**  
+`redis_host`: **String**  
+`redis_port`: **Int**  
