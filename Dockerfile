@@ -16,7 +16,7 @@ RUN apt update \
     && apt clean
 
 # Install Poetry
-RUN pip install Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - --preview
 
 # Change workdir
 WORKDIR /app
