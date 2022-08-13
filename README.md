@@ -5,6 +5,18 @@ A discord bot that automatically unarchives threads as soon as they're archived.
 
 [Install link](https://discord.com/api/oauth2/authorize?client_id=965283118477094992&permissions=543582182592&scope=bot%20applications.commands)
 
+## Usage
+
+Use Lazarus Bot in discord
+
+1. Invite the bot to the channel in which you'd like it to revive threads
+
+1. Ensure the bot has the `Manage Messages and Threads` permission in the channel
+
+1. Use `/keeepalive-on` inside of a thread if you'd like Lazarus Bot to automatically revive threads
+
+1. Use `/keeepalive-off` inside of a thread if you'd like Lazarus Bot to stop automatically reviving threads
+
 ## Documentation
 
 - [Discord Scopes Explanation](https://discord.com/developers/docs/topics/oauth2)
