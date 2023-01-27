@@ -1,0 +1,17 @@
+app = "lazarus-bot"
+kill_signal = "SIGTERM"
+kill_timeout = 5
+
+[build]
+image = "registry.fly.io/lazarus-bot:latest"
+
+[experimental]
+auto_rollback = true
+
+[deploy]
+strategy = "immediate"
+
+[env]
+redis_port = "14875"
+
+[services]
