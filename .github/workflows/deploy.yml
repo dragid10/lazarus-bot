@@ -38,8 +38,8 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: registry.fly.io/lazarus-bot:latest,registry.fly.io/lazarus-bot:production
-            build-args: |
-                BUILDKIT_CONTEXT_KEEP_GIT_DIR=true
+          build-args: |
+            BUILDKIT_CONTEXT_KEEP_GIT_DIR=true
   deploy:
     name: Deploy lazarus-bot
     runs-on: ubuntu-latest
