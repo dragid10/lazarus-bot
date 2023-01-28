@@ -1,4 +1,4 @@
-FROM python:3.10-slim as base
+FROM python:3.10
 
 # Python env flags
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -17,7 +17,8 @@ RUN apt-get update \
     && apt-get clean
 
 # Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 - --preview
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
 
 # Change workdir
 WORKDIR /app
@@ -32,4 +33,4 @@ COPY . /app/
 ENV PYTHONPATH /app/*
 
 RUN echo "Prod build"
-CMD ["/root/.local/bin/poetry", "run", "python", "-m", "main", "-d", "redis"]
+CMD ["/root/.local/bin/poetry", "run", "python3", "-m", "main", "-d", "redis"]

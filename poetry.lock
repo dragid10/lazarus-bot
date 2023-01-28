@@ -768,11 +768,7 @@ files = [
 ]
 
 [package.dependencies]
-aiohttp = [
-    {version = ">=3.6.0,<3.9.0"},
-    {version = "*", extras = ["speed"], optional = true, markers = "extra == \"speed\""},
-]
-orjson = {version = ">=3.5.4", optional = true, markers = "extra == \"speed\""}
+aiohttp = ">=3.6.0,<3.9.0"
 typing-extensions = {version = ">=4,<5", markers = "python_version < \"3.11\""}
 
 [package.extras]
@@ -1160,4 +1156,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.2, != 3.11.*"
-content-hash = "10c54e9e955ebdf0fa2de2da6a686e147a6f11c9ca9bda9dd089cbaf0cc68807"
+content-hash = "0e607978f900fa1e75e7af79de5af00bc21708402e63d731992e1c335235ab4a"
